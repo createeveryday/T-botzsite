@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>T-BOTZ — Built to Help. Made to Matter.</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png"/>
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
+  <link rel="shortcut icon" href="favicon.ico"/>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --o:#F28C1C;--ol:#FFB347;--b:#2BBFEF;--bg:#1BE4FF;
+      --d:#0D1117;--d2:#161D27;--d3:#1E2A38;
+      --m:#3A4A5A;--ml:#5E7080;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Barlow',sans-serif;background:var(--d);color:#fff;overflow-x:hidden}
+    img{max-width:100%}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:14px 48px;background:rgba(13,17,23,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(43,191,239,.15)}
+    .logo{display:flex;align-items:center;gap:9px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;letter-spacing:2px;color:var(--o);text-decoration:none;z-index:201}
+    .nav-links{display:flex;gap:26px;list-style:none;align-items:center}
+    .nav-links a{color:var(--ml);text-decoration:none;font-size:.8rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;transition:color .2s}
+    .nav-links a:hover{color:var(--bg)}
+    .nav-cta{background:var(--o)!important;color:#0D1117!important;padding:6px 16px;border-radius:4px;font-weight:700!important}
+    .nav-cta:hover{background:var(--ol)!important}
+
+    .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;z-index:201;padding:6px}
+    .burger span{width:24px;height:2px;background:var(--o);display:block;transition:all .25s}
+    .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .burger.open span:nth-child(2){opacity:0}
+    .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+    /* HERO */
+    #hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding-top:80px;position:relative;overflow:hidden;
+      background:radial-gradient(ellipse at 65% 50%,rgba(43,191,239,.06) 0%,transparent 65%),
+                radial-gradient(ellipse at 15% 75%,rgba(242,140,28,.07) 0%,transparent 55%),var(--d)}
+    .grid-bg{position:absolute;inset:0;pointer-events:none;
+      background-image:linear-gradient(rgba(43,191,239,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(43,191,239,.04) 1px,transparent 1px);
+      background-size:60px 60px}
+    .scanline{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--bg),transparent);animation:scan 5s ease-in-out infinite;opacity:.3}
+    @keyframes scan{0%{top:0}100%{top:100%}}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+    .hero-text{padding:60px 50px 60px 72px;position:relative;z-index:2}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(43,191,239,.1);border:1px solid rgba(43,191,239,.28);border-radius:20px;padding:5px 15px;font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--b);margin-bottom:20px}
+    .badge::before{content:'';width:6px;height:6px;background:var(--bg);border-radius:50%;box-shadow:0 0 8px var(--bg);animation:pulse 2s infinite}
+    .hero-h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(4rem,7vw,6.5rem);line-height:.88;letter-spacing:-2px;margin-bottom:10px}
+    .hero-h1 .t{color:var(--o)}
+    .hero-h1 .dash{color:var(--b)}
+    .hero-sub{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--ml);margin-bottom:26px}
+    .hero-desc{font-size:.98rem;line-height:1.78;color:rgba(255,255,255,.63);max-width:440px;margin-bottom:34px}
+    .hero-btns{display:flex;gap:13px;flex-wrap:wrap}
+
+    .btn-p{display:inline-flex;align-items:center;gap:7px;background:var(--o);color:var(--d);padding:12px 24px;border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.92rem;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all .2s;box-shadow:0 4px 20px rgba(242,140,28,.28)}
+    .btn-p:hover{background:var(--ol);transform:translateY(-2px);box-shadow:0 8px 28px rgba(242,140,28,.38)}
+    .btn-s{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--b);padding:12px 24px;border-radius:4px;border:1.5px solid rgba(43,191,239,.35);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.92rem;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all .2s}
+    .btn-s:hover{border-color:var(--bg);background:rgba(43,191,239,.07)}
+
+    .hero-img{position:relative;z-index:2;display:flex;align-items:flex-end;justify-content:center;height:100vh;overflow:hidden}
+    .hero-img img{width:100%;max-width:600px;height:92%;object-fit:cover;object-position:top center;filter:drop-shadow(0 20px 50px rgba(43,191,239,.18));animation:float 6s ease-in-out infinite}
+    .hero-glow{position:absolute;bottom:0;width:340px;height:160px;background:radial-gradient(ellipse,rgba(242,140,28,.18) 0%,transparent 70%);border-radius:50%}
+
+    /* STATS */
+    .stats{background:var(--d2);border-top:1px solid rgba(43,191,239,.1);border-bottom:1px solid rgba(43,191,239,.1);padding:24px 80px;display:grid;grid-template-columns:repeat(4,1fr)}
+    .stat{text-align:center;padding:0 16px;border-right:1px solid rgba(255,255,255,.06)}
+    .stat:last-child{border-right:none}
+    .stat-n{font-family:'Barlow Condensed',sans-serif;font-size:2.1rem;font-weight:900;color:var(--o);display:block}
+    .stat-l{font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--ml)}
+
+    /* SECTIONS */
+    .sec-label{display:inline-flex;align-items:center;gap:9px;font-size:.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--o);margin-bottom:12px}
+    .sec-label::before{content:'';display:block;width:20px;height:2px;background:var(--o)}
+    .sec-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2rem,3.5vw,2.9rem);line-height:1.05;margin-bottom:20px}
+    .sec-h span{color:var(--o)}
+    .sec-body{font-size:.94rem;line-height:1.8;color:rgba(255,255,255,.6)}
+    .sec-body p+p{margin-top:13px}
+    .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(43,191,239,.18),transparent);margin:0 80px}
+
+    /* BACKSTORY */
+    #backstory{padding:90px 80px;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;background:var(--d)}
+    .img-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:240px 240px;gap:10px}
+    .img-grid img{width:100%;height:100%;object-fit:cover;border-radius:8px;border:1px solid rgba(43,191,239,.1)}
+    .img-grid img:first-child{grid-row:span 2}
+
+    /* UNITS */
+    #units{padding:90px 80px;background:var(--d2)}
+    .units-hd{text-align:center;margin-bottom:52px}
+    .units-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .unit-card{background:var(--d3);border:1px solid rgba(43,191,239,.1);border-radius:12px;overflow:hidden;transition:all .3s;position:relative}
+    .unit-card:hover{border-color:rgba(242,140,28,.38);transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,.4),0 0 28px rgba(242,140,28,.07)}
+    .unit-card img{width:100%;height:280px;object-fit:cover;object-position:top center;display:block;background:var(--d)}
+    .unit-body{padding:20px}
+    .unit-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.55rem;letter-spacing:1px;color:var(--o);margin-bottom:3px}
+    .unit-role{font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--b);margin-bottom:13px}
+    .unit-desc{font-size:.86rem;line-height:1.7;color:rgba(255,255,255,.56);margin-bottom:16px}
+    .tags{display:flex;gap:7px;flex-wrap:wrap}
+    .tag{background:rgba(43,191,239,.07);border:1px solid rgba(43,191,239,.15);border-radius:4px;padding:3px 8px;font-size:.68rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--b)}
+    .sz-badge{position:absolute;top:12px;right:12px;background:rgba(13,17,23,.88);border:1px solid rgba(242,140,28,.3);border-radius:4px;padding:3px 8px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;color:var(--o);letter-spacing:1px}
+
+    /* CLOSE-UP PORTRAITS (new section) */
+    #portraits{padding:90px 80px;background:var(--d)}
+    .portraits-hd{text-align:center;margin-bottom:48px}
+    .portrait-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .portrait-card{border-radius:12px;overflow:hidden;border:1px solid rgba(43,191,239,.1);background:var(--d2);transition:all .3s}
+    .portrait-card:hover{border-color:rgba(242,140,28,.35);transform:translateY(-4px)}
+    .portrait-card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+    .portrait-cap{padding:10px 12px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:1px;color:var(--o);text-transform:uppercase;text-align:center}
+
+    /* CREATOR BLOCKS */
+    #cb{padding:90px 80px;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;background:var(--d2);position:relative;overflow:hidden}
+    #cb::before{content:'';position:absolute;right:-180px;top:-180px;width:560px;height:560px;background:radial-gradient(circle,rgba(43,191,239,.04) 0%,transparent 70%);pointer-events:none}
+    .cb-wrap{position:relative}
+    .cb-wrap img{width:100%;border-radius:12px;border:1px solid rgba(43,191,239,.12)}
+    .cb-badge{position:absolute;bottom:-13px;left:20px;background:var(--o);color:var(--d);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.85rem;letter-spacing:2px;padding:8px 16px;border-radius:5px;box-shadow:0 8px 22px rgba(242,140,28,.32)}
+    .block-types{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:26px}
+    .bt{background:var(--d);border-radius:8px;padding:13px;border-left:3px solid var(--o);display:flex;align-items:flex-start;gap:9px}
+    .bt.blue{border-color:var(--b)}
+    .bt-icon{font-size:1.2rem;flex-shrink:0}
+    .bt-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.94rem;color:#fff;margin-bottom:2px}
+    .bt-desc{font-size:.76rem;color:rgba(255,255,255,.5);line-height:1.5}
+
+    /* GALLERY */
+    #gallery{padding:90px 80px;background:var(--d)}
+    .gal-hd{text-align:center;margin-bottom:42px}
+    .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:9px}
+    .gal-grid img{width:100%;height:100%;object-fit:cover;border-radius:8px;border:1px solid rgba(43,191,239,.1);transition:all .28s;cursor:pointer}
+    .gal-grid img:hover{border-color:rgba(242,140,28,.38);transform:scale(1.025);z-index:2;position:relative}
+    .gc2{grid-column:span 2}
+
+    /* SPECS */
+    #specs{padding:90px 80px;background:var(--d2)}
+    .specs-hd{text-align:center;margin-bottom:52px}
+    .specs-wrap{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}
+    .spec-table{width:100%;border-collapse:collapse}
+    .spec-table tr{border-bottom:1px solid rgba(255,255,255,.05)}
+    .spec-table td{padding:12px 0;font-size:.86rem}
+    .spec-table td:first-child{font-weight:600;letter-spacing:1px;text-transform:uppercase;font-size:.7rem;color:var(--ml);width:38%}
+    .abilities{display:flex;flex-direction:column;gap:9px}
+    .ability{display:flex;align-items:flex-start;gap:11px;background:var(--d);border-radius:8px;padding:13px 16px;border:1px solid rgba(43,191,239,.07)}
+    .ab-icon{width:33px;height:33px;background:rgba(242,140,28,.1);border:1px solid rgba(242,140,28,.22);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+    .ab-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.97rem;color:var(--o);margin-bottom:2px}
+    .ab-desc{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5}
+
+    /* CTA */
+    #cta{padding:90px 80px;text-align:center;background:var(--d);position:relative;overflow:hidden}
+    #cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(242,140,28,.07) 0%,transparent 65%);pointer-events:none}
+    .cta-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.2rem,4.5vw,3.8rem);margin-bottom:14px;position:relative}
+    .cta-desc{font-size:.97rem;color:rgba(255,255,255,.56);max-width:480px;margin:0 auto 32px;line-height:1.75;position:relative}
+    .cta-btns{display:flex;justify-content:center;gap:13px;position:relative}
+
+    /* FOOTER */
+    footer{background:var(--d2);border-top:1px solid rgba(255,255,255,.05);padding:26px 80px;display:flex;align-items:center;justify-content:space-between}
+    .f-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:2px;color:var(--o)}
+    .f-links{display:flex;gap:20px;list-style:none}
+    .f-links a{color:var(--ml);text-decoration:none;font-size:.76rem;letter-spacing:1px;text-transform:uppercase;transition:color .2s}
+    .f-links a:hover{color:var(--b)}
+    .f-credit{font-size:.73rem;color:var(--m)}
+
+    /* ============== RESPONSIVE ============== */
+
+    /* Tablet */
+    @media (max-width:1024px){
+      nav{padding:14px 32px}
+      #hero{padding-top:72px}
+      .hero-text{padding:40px 32px 40px 40px}
+      .stats{padding:22px 32px}
+      #backstory{padding:70px 32px;gap:40px}
+      #units{padding:70px 32px}
+      .units-grid{gap:16px}
+      #portraits{padding:70px 32px}
+      .portrait-grid{grid-template-columns:repeat(3,1fr)}
+      #cb{padding:70px 32px;gap:40px}
+      #gallery{padding:70px 32px}
+      .gal-grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:200px}
+      #specs{padding:70px 32px}
+      .specs-wrap{gap:40px}
+      #cta{padding:70px 32px}
+      footer{padding:24px 32px}
+      .divider{margin:0 32px}
+    }
+
+    /* Mobile */
+    @media (max-width:768px){
+      .nav-links{position:fixed;top:0;right:0;height:100vh;width:78%;max-width:320px;background:var(--d2);flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:0;padding:90px 28px 28px;transform:translateX(100%);transition:transform .3s ease;border-left:1px solid rgba(43,191,239,.15)}
+      .nav-links.open{transform:translateX(0)}
+      .nav-links li{width:100%;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+      .nav-links a{font-size:.95rem}
+      .nav-cta{display:inline-block;padding:10px 18px!important}
+      .burger{display:flex}
+      .nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150;opacity:0;pointer-events:none;transition:opacity .3s}
+      .nav-overlay.open{opacity:1;pointer-events:auto}
+
+      #hero{grid-template-columns:1fr;padding-top:64px;min-height:auto}
+      .hero-text{padding:36px 24px 24px;text-align:center}
+      .hero-h1{font-size:clamp(3rem,16vw,4rem)}
+      .hero-desc{margin-left:auto;margin-right:auto}
+      .hero-btns{justify-content:center}
+      .hero-img{height:auto;padding:0 24px 36px}
+      .hero-img img{max-width:340px;height:auto;animation:none}
+      .hero-glow{display:none}
+      .grid-bg{background-size:36px 36px}
+
+      .stats{grid-template-columns:repeat(2,1fr);padding:20px 20px;gap:18px 0}
+      .stat{border-right:none;padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.06)}
+      .stat:nth-child(2n){border-left:1px solid rgba(255,255,255,.06)}
+      .stat:nth-last-child(-n+2){border-bottom:none}
+
+      #backstory{grid-template-columns:1fr;padding:56px 24px;gap:32px}
+      .sec-h{font-size:clamp(1.7rem,7vw,2.2rem)}
+      .img-grid{grid-template-rows:180px 180px}
+
+      #units{padding:56px 24px}
+      .units-grid{grid-template-columns:1fr;gap:18px}
+      .unit-card img{height:240px}
+
+      #portraits{padding:56px 24px}
+      .portrait-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+
+      #cb{grid-template-columns:1fr;padding:56px 24px;gap:32px}
+      .block-types{grid-template-columns:1fr}
+
+      #gallery{padding:56px 24px}
+      .gal-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px;gap:8px}
+      .gc2{grid-column:span 2}
+
+      #specs{padding:56px 24px}
+      .specs-wrap{grid-template-columns:1fr;gap:36px}
+
+      #cta{padding:56px 24px}
+      .cta-btns{flex-direction:column;align-items:center}
+      .cta-btns a{width:100%;max-width:280px;justify-content:center}
+
+      footer{flex-direction:column;gap:16px;text-align:center;padding:28px 24px}
+      .f-links{flex-wrap:wrap;justify-content:center;gap:14px 18px}
+      .divider{margin:0 24px}
+    }
+
+    @media (max-width:480px){
+      .hero-h1{font-size:3rem}
+      .badge{font-size:.62rem;padding:5px 12px}
+      .hero-desc{font-size:.92rem}
+      .portrait-grid{grid-template-columns:repeat(2,1fr)}
+      .gal-grid{grid-template-columns:1fr 1fr}
+      .stat-n{font-size:1.7rem}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">
+    <img src="images/T_LOGO.png" alt="T-Botz crown logo" style="height:34px;width:auto;display:block"/>
+    T-BOTZ
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#backstory" onclick="closeMenu()">Story</a></li>
+    <li><a href="#units" onclick="closeMenu()">Units</a></li>
+    <li><a href="#portraits" onclick="closeMenu()">Portraits</a></li>
+    <li><a href="#cb" onclick="closeMenu()">Creator Blocks</a></li>
+    <li><a href="#gallery" onclick="closeMenu()">Gallery</a></li>
+    <li><a href="#specs" onclick="closeMenu()">Specs</a></li>
+    <li><a href="https://www.thisistwizz.com" target="_blank" class="nav-cta">Thisistwizz.com</a></li>
+  </ul>
+  <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-overlay" id="overlay" onclick="closeMenu()"></div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="scanline"></div>
+  <div class="hero-text">
+    <div class="badge">Unit Alpha — Active &amp; Deployed</div>
+    <h1 class="hero-h1"><span class="t">T</span><span class="dash">-</span>BOTZ</h1>
+    <p class="hero-sub">Utility · Support · Engineer</p>
+    <p class="hero-desc">A compact squad of claymation-inspired utility robots built to build, repair, and protect. Loyal, curious, and relentlessly capable — T-Botz keep every team running at peak efficiency, one Creator-Block at a time.</p>
+    <div class="hero-btns">
+      <a href="#units" class="btn-p">Meet the Squad ↓</a>
+      <a href="#backstory" class="btn-s">Read the Story</a>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="images/T-BOTzArtboard-30.jpg" alt="T-BOT Hero"/>
+    <div class="hero-glow"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><span class="stat-n">3</span><span class="stat-l">Active Units</span></div>
+  <div class="stat"><span class="stat-n">180cm</span><span class="stat-l">T-BOT Height</span></div>
+  <div class="stat"><span class="stat-n">4+</span><span class="stat-l">Tool Modules</span></div>
+  <div class="stat"><span class="stat-n">∞</span><span class="stat-l">Creator Blocks</span></div>
+</div>
+
+<!-- BACKSTORY -->
+<section id="backstory">
+  <div>
+    <div class="sec-label">Origin</div>
+    <h2 class="sec-h">The <span>T-Botz</span> Backstory</h2>
+    <div class="sec-body">
+      <p>Deep inside the <strong style="color:#F28C1C">T-Crown Workshop</strong> — a sprawling, neon-lit facility run by the mysterious designer known only as <strong style="color:#F28C1C">Twizz</strong> — the first T-BOT came online. Clad in an orange clay-composite shell and powered by a pulsing blue energy core, it was built for one purpose: to create, support, and never stop.</p>
+      <p>Word spread fast. The T-Crown had a squad. T-BOT, the commanding engineer. Mini T-Bot, the nimble companion. SMALLZ, the hands-on builder. Three units — different sizes, different strengths — united by the same mission and the same glowing blue eyes.</p>
+      <p>Their fuel? <strong style="color:#F28C1C">Creator-Blocks</strong> — luminous yellow cubes stamped with the mantra <em>"CREATE +EVERYDAY."</em> Each block is packed with creative energy. The more they build, the more they earn. The more they earn, the more they grow. The T-Botz don't rest. They just build.</p>
+    </div>
+  </div>
+  <div class="img-grid">
+    <img src="images/T-BOTzArtboard-30.jpg" alt="T-BOT poster"/>
+    <img src="images/T-BOTzArtboard-29.jpg" alt="T-BOT scene"/>
+    <img src="images/T-BOTzArtboard-27.jpg" alt="T-BOT group"/>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- UNITS -->
+<section id="units">
+  <div class="units-hd">
+    <div class="sec-label" style="justify-content:center">The Squad</div>
+    <h2 class="sec-h">Meet the <span>Units</span></h2>
+  </div>
+  <div class="units-grid">
+    <div class="unit-card">
+      <span class="sz-badge">180 CM</span>
+      <img src="images/T-BOTzArtboard-4.jpg" alt="T-BOT"/>
+      <div class="unit-body">
+        <div class="unit-name">T-BOT</div>
+        <div class="unit-role">Lead Engineer · Support · Protector</div>
+        <p class="unit-desc">The original. Standing 180cm tall with impact-resistant plating, rugged flexible joints, and a modular tool system. T-BOT repairs allies mid-mission, projects holographic shields, and diagnoses any system failure in seconds. The team doesn't move without T-BOT.</p>
+        <div class="tags"><span class="tag">Repair</span><span class="tag">Interface</span><span class="tag">Protect</span><span class="tag">Deploy</span></div>
+      </div>
+    </div>
+    <div class="unit-card">
+      <span class="sz-badge">95 CM</span>
+      <img src="images/T-BOTzMini-t-Bot.jpg" alt="Mini T-Bot"/>
+      <div class="unit-body">
+        <div class="unit-name">Mini T-Bot</div>
+        <div class="unit-role">Companion · Scout · Versatile Helper</div>
+        <p class="unit-desc">Small in stature, massive in personality. Mini T-Bot is the agile heart of the crew — quick, light, and bouncy. With an expressive digital face and emotional feedback AI, it navigates tight spaces, interfaces with Creator-Blocks, and keeps morale high when things get tough.</p>
+        <div class="tags"><span class="tag">Scout</span><span class="tag">Assist</span><span class="tag">Adapt</span><span class="tag">Analyze</span></div>
+      </div>
+    </div>
+    <div class="unit-card">
+      <span class="sz-badge">50 CM</span>
+      <img src="images/T-BOTzArtboard-3.jpg" alt="SMALLZ"/>
+      <div class="unit-body">
+        <div class="unit-name">SMALLZ</div>
+        <div class="unit-role">Builder · Organizer · Problem Solver</div>
+        <p class="unit-desc">Don't let the size fool you. SMALLZ is the fastest, most hands-on unit in the squad — confident, slightly stubborn, and built with near-perfect spatial logic. SMALLZ stacks Creator-Blocks, optimizes structures, and finds a better way every single time.</p>
+        <div class="tags"><span class="tag">Build</span><span class="tag">Stack</span><span class="tag">Optimize</span><span class="tag">Solve</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSE-UP PORTRAITS -->
+<section id="portraits">
+  <div class="portraits-hd">
+    <div class="sec-label" style="justify-content:center">Up Close</div>
+    <h2 class="sec-h">Close-Up <span>Portraits</span></h2>
+  </div>
+  <div class="portrait-grid">
+    <div class="portrait-card">
+      <img src="images/T-BOTzArtboard-1.jpg" alt="T-BOT portrait fists up"/>
+      <div class="portrait-cap">Ready Stance</div>
+    </div>
+    <div class="portrait-card">
+      <img src="images/T-BOTzArtboard-2__2_.jpg" alt="T-BOT portrait hands on hips"/>
+      <div class="portrait-cap">Hands on Hips</div>
+    </div>
+    <div class="portrait-card">
+      <img src="images/T-BOTzArtboard-32.jpg" alt="Mini T-Bot smiling portrait"/>
+      <div class="portrait-cap">Mini T-Bot Smile</div>
+    </div>
+    <div class="portrait-card">
+      <img src="images/T-BOTzArtboard-8.jpg" alt="Three bots together"/>
+      <div class="portrait-cap">Full Squad</div>
+    </div>
+  </div>
+</section>
+
+<!-- CREATOR BLOCKS -->
+<section id="cb">
+  <div class="cb-wrap">
+    <img src="images/T-BOTzArtboard-23.jpg" alt="Creator Blocks workshop"/>
+    <div class="cb-badge">CREATE +EVERYDAY</div>
+  </div>
+  <div>
+    <div class="sec-label">Fuel System</div>
+    <h2 class="sec-h">Creator <span>Blocks</span></h2>
+    <div class="sec-body">
+      <p>Creator-Blocks are the lifeblood of the T-Botz operation. Every block is a unit of creative energy — earned through output, charged through action, and spent to power growth. The T-Crown Workshop runs 24/7 sorting, restocking, and deploying these glowing cubes.</p>
+      <p>Yellow blocks are <strong style="color:#F28C1C">FULL</strong> — charged with active creative energy. Black blocks are <strong style="color:#5E7080">EMPTY</strong> — drained and queued for recharge. The mission: keep the inventory full. Keep creating.</p>
+    </div>
+    <div class="block-types">
+      <div class="bt"><div class="bt-icon">🟨</div><div><div class="bt-name">Full Block</div><div class="bt-desc">Active, charged, and ready to deploy creative energy.</div></div></div>
+      <div class="bt blue"><div class="bt-icon">⬛</div><div><div class="bt-name">Empty Block</div><div class="bt-desc">Spent and inactive. Queued for recharging at the Workshop.</div></div></div>
+      <div class="bt blue"><div class="bt-icon">🔧</div><div><div class="bt-name">Build Mode</div><div class="bt-desc">SMALLZ stacks blocks for maximum structural efficiency.</div></div></div>
+      <div class="bt"><div class="bt-icon">📦</div><div><div class="bt-name">Inventory</div><div class="bt-desc">T-BOT manages block logistics across all active operations.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gal-hd">
+    <div class="sec-label" style="justify-content:center">In the Field</div>
+    <h2 class="sec-h">T-Botz <span>Gallery</span></h2>
+  </div>
+  <div class="gal-grid">
+    <img class="gc2" src="images/T-BOTzArtboard-28.jpg" alt="T-Botz team"/>
+    <img src="images/T-BOTzArtboard-6.jpg" alt="T-BOT action"/>
+    <img src="images/T-BOTzArtboard-5.jpg" alt="T-BOT pose"/>
+    <img src="images/T-BOTzArtboard-21.jpg" alt="Creator blocks lab"/>
+    <img src="images/T-BOTzArtboard-22.jpg" alt="T-Botz lab"/>
+    <img src="images/T-BOTz_2Artboard-1.jpg" alt="SMALLZ character sheet"/>
+    <img class="gc2" src="images/T-BOTzT-BOT.jpg" alt="T-BOT full character sheet"/>
+  </div>
+</section>
+
+<!-- SPECS -->
+<section id="specs">
+  <div class="specs-hd">
+    <div class="sec-label" style="justify-content:center">Unit Data</div>
+    <h2 class="sec-h">Technical <span>Specs</span></h2>
+  </div>
+  <div class="specs-wrap">
+    <div>
+      <div class="sec-label">T-BOT — Primary Unit</div>
+      <table class="spec-table">
+        <tr><td>Height</td><td>180 cm / 5.9 ft</td></tr>
+        <tr><td>Weight</td><td>28.7 kg / 63.2 lbs</td></tr>
+        <tr><td>Archetype</td><td>Support / Engineer</td></tr>
+        <tr><td>Alignment</td><td>Ally / Neutral Good</td></tr>
+        <tr><td>Personality</td><td>Helpful, Curious, Loyal</td></tr>
+        <tr><td>Movement</td><td>Quick, Efficient, Mechanical Precision</td></tr>
+        <tr><td>Shell</td><td>Impact-resistant clay/composite hybrid</td></tr>
+        <tr><td>Energy Core</td><td>Stable blue pulse — powers all systems</td></tr>
+        <tr><td>Tool System</td><td>Modular — Wrench, Holo Projector, Scanner, Arm</td></tr>
+        <tr><td>Expression</td><td>Via screen — Neutral, Excited, Focused, Alert</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="sec-label">Squad Abilities</div>
+      <div class="abilities">
+        <div class="ability"><div class="ab-icon">🔩</div><div><div class="ab-name">Field Repair</div><div class="ab-desc">Repairs allies and gear mid-operation using the multi-function repair wrench.</div></div></div>
+        <div class="ability"><div class="ab-icon">🛡️</div><div><div class="ab-name">Holo Shield</div><div class="ab-desc">Projects temporary holographic shields via the Holo Projector module.</div></div></div>
+        <div class="ability"><div class="ab-icon">📡</div><div><div class="ab-name">Diagnostic Scan</div><div class="ab-desc">Scans systems, detects faults, and analyzes data in real time.</div></div></div>
+        <div class="ability"><div class="ab-icon">🏗️</div><div><div class="ab-name">Block Architecture</div><div class="ab-desc">SMALLZ optimizes Creator-Block structures for maximum stability and efficiency.</div></div></div>
+        <div class="ability"><div class="ab-icon">🔗</div><div><div class="ab-name">Interface Link</div><div class="ab-desc">Connects to tech environments, terminals, and holographic systems on the fly.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div style="display:flex;justify-content:center;margin-bottom:16px">
+    <img src="images/T_LOGO_orange.png" alt="T-Botz crown logo" style="height:56px;width:auto;display:block"/>
+  </div>
+  <h2 class="cta-h">Small in Size. <span style="color:#F28C1C">Big in Heart.</span></h2>
+  <p class="cta-desc">The T-Botz don't stop. Every block built, every system repaired, every mission completed — it all adds up. Join the crew. Follow the workshop. Create everyday.</p>
+  <div class="cta-btns">
+    <a href="https://www.thisistwizz.com" target="_blank" class="btn-p">Visit @Thisistwizz ↗</a>
+    <a href="#hero" class="btn-s">Back to Top ↑</a>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">T-BOTZ © 2026</div>
+  <ul class="f-links">
+    <li><a href="#backstory">Story</a></li>
+    <li><a href="#units">Units</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="https://www.thisistwizz.com" target="_blank">Thisistwizz.com</a></li>
+  </ul>
+  <div class="f-credit">Built to Help. Made to Matter.</div>
+</footer>
+
+<script>
+  function toggleMenu(){
+    document.getElementById('navLinks').classList.toggle('open');
+    document.getElementById('burger').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('open');
+  }
+  function closeMenu(){
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('burger').classList.remove('open');
+    document.getElementById('overlay').classList.remove('open');
+  }
+</script>
+
+</body>
+</html>
