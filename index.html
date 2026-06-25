@@ -203,6 +203,18 @@ section.pad{padding:clamp(64px,8vw,110px) 0}
 .gal img:hover{transform:scale(1.03);z-index:2;position:relative}
 .span2{grid-column:span 2}
 
+/* ===== ARCHIVE ===== */
+#archive{background:var(--bg)}
+.archive{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.arc{padding:0;border:none;background:var(--card);border-radius:14px;overflow:hidden;cursor:pointer;box-shadow:var(--raise-sm);position:relative;transition:transform .2s}
+.arc:hover{transform:translateY(-4px)}
+.arc img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+.arc .ix{position:absolute;top:8px;left:8px;font-family:var(--font-m);font-size:.54rem;letter-spacing:.08em;background:rgba(36,26,16,.82);color:var(--cream);padding:3px 7px;border-radius:6px}
+.lb{position:fixed;inset:0;z-index:500;background:rgba(20,14,8,.93);display:none;align-items:center;justify-content:center;padding:28px}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:86vh;border-radius:12px;box-shadow:0 30px 60px rgba(0,0,0,.6)}
+.lb-close{position:absolute;top:18px;right:20px;background:var(--card);border:none;border-radius:10px;font-family:var(--font-d);font-weight:800;font-size:.9rem;padding:9px 15px;cursor:pointer;color:var(--ink);box-shadow:var(--raise-sm)}
+
 /* ===== SPECS ===== */
 #specs{background:var(--bg)}
 .spec-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
@@ -294,6 +306,7 @@ footer{background:var(--cocoa);color:var(--cream)}
     <li><a href="#collection" onclick="closeMenu()">Collection</a></li>
     <li><a href="#blocks" onclick="closeMenu()">Creator-Blocks</a></li>
     <li><a href="#plates" onclick="closeMenu()">Plates</a></li>
+    <li><a href="#archive" onclick="closeMenu()">Archive</a></li>
     <li><a href="#specs" onclick="closeMenu()">Specs</a></li>
     <li><a href="https://www.thisistwizz.com" target="_blank" rel="noopener" class="nav-cta" onclick="closeMenu()">thisistwizz.com ↗</a></li>
   </ul>
@@ -471,6 +484,44 @@ footer{background:var(--cocoa);color:var(--cream)}
   </div>
 </section>
 
+<!-- ARCHIVE -->
+<section id="archive" class="pad">
+  <div class="wrap">
+    <div class="head center reveal">
+      <span class="eyebrow c">Key Art</span>
+      <h2 class="sec-h">BOTZ <em>Archive</em></h2>
+      <p class="lead" style="margin:14px auto 0;text-align:center">Twenty-five plates straight from the workshop key-art reel. Tap any plate to enlarge.</p>
+    </div>
+    <div class="archive reveal">
+      <button class="arc" type="button" onclick="openLb('images/gal01.jpg')"><span class="ix">01</span><img src="images/gal01.jpg" loading="lazy" alt="BOTZ key art plate 01"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal02.jpg')"><span class="ix">02</span><img src="images/gal02.jpg" loading="lazy" alt="BOTZ key art plate 02"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal03.jpg')"><span class="ix">03</span><img src="images/gal03.jpg" loading="lazy" alt="BOTZ key art plate 03"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal04.jpg')"><span class="ix">04</span><img src="images/gal04.jpg" loading="lazy" alt="BOTZ key art plate 04"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal05.jpg')"><span class="ix">05</span><img src="images/gal05.jpg" loading="lazy" alt="BOTZ key art plate 05"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal06.jpg')"><span class="ix">06</span><img src="images/gal06.jpg" loading="lazy" alt="BOTZ key art plate 06"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal07.jpg')"><span class="ix">07</span><img src="images/gal07.jpg" loading="lazy" alt="BOTZ key art plate 07"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal08.jpg')"><span class="ix">08</span><img src="images/gal08.jpg" loading="lazy" alt="BOTZ key art plate 08"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal09.jpg')"><span class="ix">09</span><img src="images/gal09.jpg" loading="lazy" alt="BOTZ key art plate 09"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal10.jpg')"><span class="ix">10</span><img src="images/gal10.jpg" loading="lazy" alt="BOTZ key art plate 10"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal11.jpg')"><span class="ix">11</span><img src="images/gal11.jpg" loading="lazy" alt="BOTZ key art plate 11"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal12.jpg')"><span class="ix">12</span><img src="images/gal12.jpg" loading="lazy" alt="BOTZ key art plate 12"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal13.jpg')"><span class="ix">13</span><img src="images/gal13.jpg" loading="lazy" alt="BOTZ key art plate 13"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal14.jpg')"><span class="ix">14</span><img src="images/gal14.jpg" loading="lazy" alt="BOTZ key art plate 14"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal15.jpg')"><span class="ix">15</span><img src="images/gal15.jpg" loading="lazy" alt="BOTZ key art plate 15"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal16.jpg')"><span class="ix">16</span><img src="images/gal16.jpg" loading="lazy" alt="BOTZ key art plate 16"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal17.jpg')"><span class="ix">17</span><img src="images/gal17.jpg" loading="lazy" alt="BOTZ key art plate 17"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal18.jpg')"><span class="ix">18</span><img src="images/gal18.jpg" loading="lazy" alt="BOTZ key art plate 18"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal19.jpg')"><span class="ix">19</span><img src="images/gal19.jpg" loading="lazy" alt="BOTZ key art plate 19"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal20.jpg')"><span class="ix">20</span><img src="images/gal20.jpg" loading="lazy" alt="BOTZ key art plate 20"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal21.jpg')"><span class="ix">21</span><img src="images/gal21.jpg" loading="lazy" alt="BOTZ key art plate 21"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal22.jpg')"><span class="ix">22</span><img src="images/gal22.jpg" loading="lazy" alt="BOTZ key art plate 22"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal23.jpg')"><span class="ix">23</span><img src="images/gal23.jpg" loading="lazy" alt="BOTZ key art plate 23"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal24.jpg')"><span class="ix">24</span><img src="images/gal24.jpg" loading="lazy" alt="BOTZ key art plate 24"/></button>
+      <button class="arc" type="button" onclick="openLb('images/gal25.jpg')"><span class="ix">25</span><img src="images/gal25.jpg" loading="lazy" alt="BOTZ key art plate 25"/></button>
+    </div>
+  </div>
+</section>
+
 <!-- SPECS -->
 <section id="specs" class="pad">
   <div class="wrap">
@@ -536,7 +587,16 @@ footer{background:var(--cocoa);color:var(--cream)}
   </div>
 </footer>
 
+<div class="lb" id="lb" onclick="closeLb(event)">
+  <button class="lb-close" type="button" onclick="closeLb(event)" aria-label="Close">✕ Close</button>
+  <img id="lbImg" src="" alt="BOTZ archive plate, enlarged"/>
+</div>
+
 <script>
+  function openLb(src){var lb=document.getElementById('lb');document.getElementById('lbImg').src=src;lb.classList.add('open');document.body.style.overflow='hidden';}
+  function closeLb(e){document.getElementById('lb').classList.remove('open');document.getElementById('lbImg').src='';document.body.style.overflow='';}
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb();});
+
   function toggleMenu(){
     var l=document.getElementById('navLinks'),b=document.getElementById('burger'),o=document.getElementById('overlay');
     var open=l.classList.toggle('open');b.classList.toggle('open');o.classList.toggle('open');
