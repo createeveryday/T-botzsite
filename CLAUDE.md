@@ -10,10 +10,14 @@
 
 ## Theme Details
 
-- **Theme name in Shopify admin:** TwiZzyPrintzStudio
+| | Name | Shopify Theme ID | Status |
+|---|---|---|---|
+| **LIVE (do not edit)** | TwiZzyPrintzStudio | `163348709693` | MAIN |
+| **SAFE BUILD (edit here)** | TwiZzyPrintzStudio — SAFE BUILD | `189177069885` | UNPUBLISHED |
+
 - **Base theme:** Shopify Dawn (heavily customized)
-- **Theme ID:** gid://shopify/OnlineStoreTheme/163348709693
 - **OS 2.0:** Yes — all templates are `.json` files, full section/block support
+- **Rule:** All development goes on the SAFE BUILD theme. Only promote to MAIN after visual QA in the Shopify preview.
 
 ## Color Palette (Current)
 
@@ -86,13 +90,21 @@ locales/        → translation strings
 
 ## Build Guidelines for Claude
 
+- **All writes go to SAFE BUILD** (`189177069885`) — NEVER write to MAIN (`163348709693`)
 - **Never edit** `config/settings_data.json` directly (overwritten by Shopify admin)
 - **Never edit** `config/settings_schema.json` without testing (breaks theme editor)
 - **Always add new sections** as new `.liquid` files in `sections/` — never modify `sections/main-*.liquid`
-- **Test on a duplicate theme** before pushing to the MAIN theme
 - **Use CSS custom properties** from `theme.liquid` — do not hardcode colors
 - **New CSS** should go in new `assets/section-[name].css` files, loaded inside the section file
 - **New JS** should use Dawn's custom elements pattern from `assets/global.js`
 - **Animations** hook into `animate--fade-in`, `animate--slide-in`, `scroll-trigger` classes
 - Font family: use `var(--font-heading-family)` and `var(--font-body-family)`
 - Brand orange: `#ff5f00` — use for CTAs, borders, glows, accents
+
+## Safe Build Workflow
+
+1. Write/edit section files targeting theme ID `189177069885` (SAFE BUILD)
+2. Preview changes at: Shopify Admin → Online Store → Themes → TwiZzyPrintzStudio — SAFE BUILD → Preview
+3. QA on desktop and mobile in preview
+4. When approved, promote SAFE BUILD to MAIN via Shopify Admin → Publish
+5. Never use `themePublish` mutation without explicit user confirmation
